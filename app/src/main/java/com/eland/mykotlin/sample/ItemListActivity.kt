@@ -11,10 +11,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import com.eland.mykotlin.sample.dummy.DummyContent
+import com.eland.mykotlin.sample.http.services.Login
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 
 import kotlinx.android.synthetic.main.item_list.*
+import kotlin.math.log
 
 /**
  * An activity representing a list of Pings. This activity
@@ -40,8 +42,10 @@ class ItemListActivity : AppCompatActivity() {
         toolbar.title = title
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
+            val login: Login = Login()
+            login.getLogin("123", "123")
         }
 
         if (item_detail_container != null) {

@@ -25,9 +25,7 @@ object DummyContent {
 
     init {
         // Add some sample items.
-        for (i in 1..COUNT) {
-            addItem(createDummyItem(i))
-        }
+        (1..COUNT).forEach { i -> addItem(createDummyItem(i)) }
     }
 
     private fun addItem(item: DummyItem) {
@@ -42,9 +40,7 @@ object DummyContent {
     private fun makeDetails(position: Int): String {
         val builder = StringBuilder()
         builder.append("Details about Item: ").append(position)
-        for (i in 0..position - 1) {
-            builder.append("\nMore details information here.")
-        }
+        (0 until position -1).forEach{ _ -> builder.append("\nMore details information here.")}
         return builder.toString()
     }
 
