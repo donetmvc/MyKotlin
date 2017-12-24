@@ -44,8 +44,10 @@ class ItemListActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                    .setAction("Action", null).show()
-            val login: Login = Login()
-            login.getLogin("123", "123")
+            val login = Login()
+
+            val result = login.getLogin("123", "123")
+            println(result)
         }
 
         if (item_detail_container != null) {

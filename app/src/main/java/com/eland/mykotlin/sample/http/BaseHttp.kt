@@ -7,7 +7,7 @@ package com.eland.mykotlin.sample.http
 class BaseHttp {
 
     companion object {
-        val baseUrl:String = "http://207.246.97.202"
+        val baseUrl:String = "http://45.32.39.136:8081"
     }
 
 }
