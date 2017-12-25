@@ -1,7 +1,9 @@
 package com.eland.mykotlin.sample.http.services
 
+import com.eland.mykotlin.sample.dto.ApiResult
 import com.eland.mykotlin.sample.dto.LoginInfo
 import com.eland.mykotlin.sample.http.interfaces.LoginApiService
+import com.eland.mykotlin.sample.http.listeners.ILoginListener
 import retrofit2.Call
 import retrofit2.Response
 
@@ -12,18 +14,23 @@ import retrofit2.Response
 
 class Login {
 
-    fun getLogin(userName: String, password: String)  {
+    fun getLogin(userName: String, password: String, listener: ILoginListener)  {
         val call = loginService.login(userName, password)
-
-        call.enqueue(object : retrofit2.Callback<LoginInfo> {
-            override fun onResponse(call: Call<LoginInfo>?, response: Response<LoginInfo>?) {
+//        observable
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe()
+        call.enqueue(object : retrofit2.Callback<ApiResult> {
+            override fun onResponse(call: Call<ApiResult>?, response: Response<ApiResult>?) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
-                val result = response?.body()
+                listener.onSuccess(response?.body())
+                //val result = response?.body()
             }
 
-            override fun onFailure(call: Call<LoginInfo>?, t: Throwable?) {
+            override fun onFailure(call: Call<ApiResult>?, t: Throwable?) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                listener.onFailure()
             }
         })
     }

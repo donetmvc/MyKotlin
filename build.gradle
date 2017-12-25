@@ -5,6 +5,7 @@ buildscript {
     ext.rxkotlin_version = '2.2.0'
     ext.retrofit_version = '2.3.0'
     ext.okhttp_version = '3.9.1'
+    ext.rxAndroid_version = '2.0.1'
 
     repositories {
         google()

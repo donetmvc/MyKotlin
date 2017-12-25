@@ -30,6 +30,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.eland.mykotlin.sample.ItemListActivity" />
         </activity>
+
+        <activity android:name=".ui.MainActivity" />
     </application>
 
 </manifest>

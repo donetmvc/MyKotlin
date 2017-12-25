@@ -9,9 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.eland.mykotlin.sample.dto.ApiResult
+import com.eland.mykotlin.sample.dto.LoginInfo
 
 import com.eland.mykotlin.sample.dummy.DummyContent
+import com.eland.mykotlin.sample.http.interfaces.LoginApiService
+import com.eland.mykotlin.sample.http.listeners.ILoginListener
 import com.eland.mykotlin.sample.http.services.Login
+import com.eland.mykotlin.sample.ui.MainActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
 
@@ -26,13 +33,16 @@ import kotlin.math.log
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-class ItemListActivity : AppCompatActivity() {
+class ItemListActivity : AppCompatActivity(), ILoginListener {
+
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private var mTwoPane: Boolean = false
+
+    private var loginService: LoginApiService? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +51,22 @@ class ItemListActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
+        loginService = LoginApiService.retrofit!!.create(LoginApiService::class.java)
+
         fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                    .setAction("Action", null).show()
-            val login = Login()
+//            val login = Login()
+//            login.getLogin("123", "123", this)
+//            println(result)
+//            loginService!!.observableLogin("123", "123")
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe({ t: ApiResult? ->
+//                        println(t)
+//                    })
 
-            val result = login.getLogin("123", "123")
-            println(result)
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         if (item_detail_container != null) {
@@ -59,6 +78,16 @@ class ItemListActivity : AppCompatActivity() {
         }
 
         setupRecyclerView(item_list)
+
+    }
+
+    override fun onSuccess(body: ApiResult?) {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        println(body)
+    }
+
+    override fun onFailure() {
+        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
