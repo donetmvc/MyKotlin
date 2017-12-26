@@ -2,8 +2,12 @@ package com.eland.mykotlin.sample.http.services
 
 import com.eland.mykotlin.sample.dto.ApiResult
 import com.eland.mykotlin.sample.dto.LoginInfo
+import com.eland.mykotlin.sample.http.BaseHttp
 import com.eland.mykotlin.sample.http.interfaces.LoginApiService
 import com.eland.mykotlin.sample.http.listeners.ILoginListener
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -35,7 +39,18 @@ class Login {
         })
     }
 
+    fun getAbservableLogin(userName: String, password: String, listener: ILoginListener) {
+        loginService.observableLogin(userName, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ t: ApiResult? ->
+                    listener.onSuccess(t)
+                }, {
+                    listener.onFailure()
+                })
+    }
+
     companion object {
-        val loginService: LoginApiService = LoginApiService.retrofit!!.create(LoginApiService::class.java)
+        val loginService: LoginApiService = BaseHttp.retrofit!!.create(LoginApiService::class.java)
     }
 }

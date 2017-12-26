@@ -13,6 +13,7 @@ import com.eland.mykotlin.sample.dto.ApiResult
 import com.eland.mykotlin.sample.dto.LoginInfo
 
 import com.eland.mykotlin.sample.dummy.DummyContent
+import com.eland.mykotlin.sample.http.BaseHttp
 import com.eland.mykotlin.sample.http.interfaces.LoginApiService
 import com.eland.mykotlin.sample.http.listeners.ILoginListener
 import com.eland.mykotlin.sample.http.services.Login
@@ -51,7 +52,7 @@ class ItemListActivity : AppCompatActivity(), ILoginListener {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
-        loginService = LoginApiService.retrofit!!.create(LoginApiService::class.java)
+        //loginService = BaseHttp.retrofit!!.create(LoginApiService::class.java)
 
         fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

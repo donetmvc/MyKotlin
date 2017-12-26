@@ -25,29 +25,29 @@ interface LoginApiService {
     @GET("/api/v1/login/{name}/{pwd}")
     fun observableLogin(@Path("name") name: String,  @Path("pwd") password: String)  : Observable<ApiResult>
 
-    companion object {
-        val client: OkHttpClient? = OkHttpClient().newBuilder()
-               // .cache(Cache(GetCreateFilePath.getPath(),10 * 10 * 1024)) //need permission
-                .addInterceptor {
-                    chain ->
-                    val original = chain.request()
-                    // See [http://developer.dribbble.com/v1/#authentication] for more information.
-                    val requestBuilder = original.newBuilder()
-                            .header("Accept", "application/json")
-//                            .header("Authorization", "Bearer" + " " + mLastToken)  //add token
-                            .method(original.method(), original.body())
-                    val request = requestBuilder.build()
-                    chain.proceed(request)
-                }
-                .addInterceptor(HttpLoggingInterceptor().apply {
-                    level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-                }).build()
-
-        val retrofit: Retrofit? = Retrofit.Builder()
-                .baseUrl(BaseHttp.baseUrl)
-                .client(client)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-    }
+//    companion object {
+//        val client: OkHttpClient? = OkHttpClient().newBuilder()
+//               // .cache(Cache(GetCreateFilePath.getPath(),10 * 10 * 1024)) //need permission
+//                .addInterceptor {
+//                    chain ->
+//                    val original = chain.request()
+//                    // See [http://developer.dribbble.com/v1/#authentication] for more information.
+//                    val requestBuilder = original.newBuilder()
+//                            .header("Accept", "application/json")
+////                            .header("Authorization", "Bearer" + " " + mLastToken)  //add token
+//                            .method(original.method(), original.body())
+//                    val request = requestBuilder.build()
+//                    chain.proceed(request)
+//                }
+//                .addInterceptor(HttpLoggingInterceptor().apply {
+//                    level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+//                }).build()
+//
+//        val retrofit: Retrofit? = Retrofit.Builder()
+//                .baseUrl(BaseHttp.baseUrl)
+//                .client(client)
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build()
+//    }
 }
